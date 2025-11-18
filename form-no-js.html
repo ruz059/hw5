@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form without JavaScript Validation</title>
+    <style>
+        :root {
+            --error-color: #dc2626;
+            --warning-color: #d97706;
+            --success-color: #059669;
+            --info-color: #2563eb;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        input:user-invalid{
+            border-color: var(--error-color);
+        }
+
+        input:valid{
+            border-color: var(--success-color);
+        }
+
+        .error {
+            color: var(--error-color);
+            font-size: 0.875rem;
+            margin: 0.25rem 0;
+        }
+
+        .info {
+            color: var(--info-color);
+            font-size: 0.875rem;
+            margin: 0.25rem 0;
+        }
+
+        .warning {
+            color: var(--warning-color);
+        }
+
+        .flash {
+            animation: flash 0.5s ease-in-out;
+        }
+
+        @keyframes flash {
+            0%, 100% { border-color: initial; }
+            50% { border-color: var(--error-color); }
+        }
+
+        .char-count {
+            font-size: 0.875rem;
+            margin: 0.25rem 0;
+        }
+
+        .char-count.warning {
+            color: var(--warning-color);
+            font-weight: bold;
+        }
+
+        .char-count.error {
+            color: var(--error-color);
+            font-weight: bold;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 1rem;
+        }
+
+        fieldset {
+            border: 1px solid #ccc;
+            padding: 1rem;
+            border-radius: 4px;
+        }
+
+        legend {
+            font-weight: bold;
+            padding: 0 0.5rem;
+        }
+
+        label {
+            display: block;
+            margin: 1rem 0 0.25rem 0;
+            font-weight: bold;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        output {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <section>
+            <nav>
+                <a href="form-with-js.html">Navigate to form with JavaScript</a>
+            </nav>
+            
+            <article>
+                <form action="https://httpbin.org/post" method="POST" id="contactForm">
+                    <fieldset>
+                        <legend>Contact Form with Validation</legend>
+
+                        <!-- Name Field -->
+                        <label for="name">Full Name:</label>
+                        <input type="text" id="name" name="name" 
+                               pattern="[A-Za-z\s]*" 
+                               title="Only letters and spaces allowed (2-50 characters)"
+                               minlength = 2
+                               maxlength =50
+                               required>
+                        <output class="info" id="name-info">Enter your full name (letters and spaces only)</output>
+                        <output class="error hidden" id="name-error"></output>
+
+                        <!-- Email Field -->
+                         <label for="email">Email:</label>
+<input type="email" id="email" name="email" 
+        pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+       title="Please enter a valid email address (e.g., user@example.com)"
+       minlength = 2
+        maxlength =100
+       required>
+<output class="info" id="email-info">Enter a valid email address</output>
+<output class="error hidden" id="email-error"></output>
+
+                        <!-- Comments Field -->
+                        <label for="comments">Comments:</label>
+                        <textarea id="comments" name="comments" 
+                                  maxlength="150"
+                                  placeholder="Enter your comments (max 150 characters)"
+                                  pattern = "^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
+                                  optional></textarea>
+                        <output class="info" id="comments-info">Share your thoughts (150 characters max)</output>
+                        <output class="char-count" id="comments-count">150 characters remaining</output>
+                        <output class="error hidden" id="comments-error"></output>
+
+                        <!-- Hidden field for form errors -->
+                        <input type="hidden" name="form-errors" id="form-errors">
+
+                        <button type="submit">Submit Form</button>
+                    </fieldset>
+                </form>
+            </article>
+        </section>
+    </main>
+
+</body>
+</html>

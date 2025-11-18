@@ -1,0 +1,34 @@
+body {
+      font-family: system-ui, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      gap: 1rem;
+    }
+
+img {
+    max-width: 300px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.caption {
+    font-size: 1.2rem;
+    transition: opacity 0.3s ease;
+}
+
+.thumbnails {
+    display: flex;
+    gap: 10px;
+}
+
+.thumbnails img {
+    width: 80px;
+    opacity: 0.8;
+}
+
+.thumbnails img:hover {
+    opacity: 1;
+}

@@ -1,0 +1,581 @@
+/* CSS Variables with green theme */
+:root {
+  --primary-green: #2e8b57;
+  --dark-green: #1a5c3a;
+  --light-green: #4caf50;
+  --mint-green: #e8f5e8;
+  --forest-green: #2d5a2d;
+  --text-color: #333333;
+  --light-text: #ffffff;
+  --bg-color: #f8fff8;
+  --card-bg: #ffffff;
+  --font-family-primary: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --font-family-heading: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+  --border-radius: 12px;
+  --box-shadow: 0 4px 12px rgba(46, 139, 87, 0.1);
+  --transition: all 0.3s ease;
+  --accent-color: #6b8e23;
+  --text-muted: #666666;
+}
+
+/* Custom Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap');
+
+/* Base styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family-primary);
+  line-height: 1.6;
+  color: var(--text-color);
+  background: linear-gradient(135deg, var(--bg-color) 0%, #f0f8f0 100%);
+  min-height: 100dvh;
+  min-width: 100dvw;
+  display: flex;
+  flex-direction: column;
+  margin: 0; 
+}
+
+header {
+  background-color: var(--dark-green);
+  padding: clamp(0.5rem, 2dvh, 1rem) 5%; 
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  flex-wrap: wrap;
+  color: var(--light-text); 
+
+  & .header-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem; 
+  }
+}
+
+
+
+
+nav {
+  width: auto;
+  margin-top: 0;
+   
+  & ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  
+  & a {  
+    color: var(--light-text);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.0rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    transition: var(--transition);
+    background: rgba(255, 255, 255, 0.1);
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+  }
+}
+
+
+/* Main content */
+main {
+  flex: 1;
+  padding: 1.5rem 2%; /* Reduced side padding */
+  max-width: 1400px; /* Much wider than 1000px */
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+
+/* Resume sections */
+/* Define the animation first */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Resume sections */
+section {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  border-left: 4px solid var(--primary-green);
+  animation: fadeIn 0.6s ease-out; /* Much faster - 0.6s instead of 3s */
+  box-sizing: border-box;
+  overflow: hidden;
+  word-wrap: break-word;
+  width: 100%;
+}
+
+/* Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  section {
+    animation: none;
+  }
+}
+
+/* Keep your responsive adjustments */
+@media (max-width: 768px) {
+  main {
+    padding: 1em 3%; /* Slightly more padding on mobile */
+  }
+  
+  section  {
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  main {
+    padding: 0.75rem 4%; /* More padding on very small screens */
+  }
+  
+  section  {
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border-left-width: 3px;
+  }
+}
+
+
+/* Headings */
+h2 {
+  font-family: var(--font-family-heading);
+  font-size: 1.5rem;
+  font-size-adjust: 0.6; /* Different adjustment for headings */
+  margin-bottom: 1.2rem;
+  color: var(--forest-green);
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--mint-green);
+}
+
+h3 {
+  font-family: var(--font-family-heading);
+  font-size: 1.2rem;
+  margin: 1.2rem 0 0.8rem;
+  color: var(--primary-green);
+}
+
+h4 {
+  font-size: 1.1rem;
+  margin: 1rem 0 0.5rem;
+  color: var(--forest-green);
+}
+
+/* List styles */
+ul, ol {
+  margin-left: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+li {
+  margin-bottom: 0.4rem;
+  line-height: 1.5;
+}
+
+/* Article styles */
+article {
+  margin-bottom: 1.2rem;
+  padding: 1rem;
+  background: linear-gradient(to right, var(--mint-green) 0%, transparent 100%);
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+}
+
+article:hover {
+  transform: translateX(5px);
+  box-shadow: 0 4px 8px rgba(46, 139, 87, 0.15);
+}
+
+/* Compact Contact Form */
+.form-container {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+form {
+  margin-top: 1rem;
+}
+
+fieldset {
+  border: 1px solid var(--mint-green);
+  border-radius: var(--border-radius);
+  padding: 1.2rem;
+  background: var(--card-bg);
+}
+
+legend {
+  font-weight: 600;
+  padding: 0 0.5rem;
+  color: var(--primary-green);
+  font-size: 1.1rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-weight: 500;
+  color: var(--forest-green);
+  font-size: 0.9rem;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  transition: var(--transition);
+  background: var(--mint-green);
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--primary-green);
+  box-shadow: 0 0 0 2px rgba(46, 139, 87, 0.2);
+  background: white;
+}
+
+textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+button {
+  background: linear-gradient(135deg, var(--primary-green) 0%, var(--light-green) 100%);
+  color: white;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  font-size: 0.9rem;
+  width: 100%;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(46, 139, 87, 0.3);
+}
+
+/* Iframe styles */
+iframe {
+  border: 1px solid var(--mint-green);
+  border-radius: var(--border-radius);
+  margin-top: 1rem;
+  width: 100%;
+}
+
+/* Footer */
+footer {
+  background: linear-gradient(135deg, var(--forest-green) 0%, var(--dark-green) 100%);
+  color: var(--light-text);
+  text-align: center;
+  padding: 1rem;
+  margin-top: 2rem;
+  font-size: 0.9rem;
+}
+
+/* Nested and Scoped CSS */
+@scope (resume-section) {
+  h3 {
+    color: var(--dark-green);
+  }
+  
+  article {
+    background: linear-gradient(to right, rgba(76, 175, 80, 0.1) 0%, transparent 100%);
+  }
+}
+
+/* Container Queries */
+@container (min-width: 400px) {
+  article {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+}
+
+/* Color transitions */
+.accent-text {
+  color: var(--primary-green);
+  transition: color 0.3s ease;
+}
+
+.accent-text:hover {
+  color: var(--dark-green);
+}
+
+.highlight {
+  background: linear-gradient(120deg, transparent 0%, var(--mint-green) 50%, transparent 100%);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.highlight:hover {
+  background: linear-gradient(120deg, transparent 0%, var(--light-green) 50%, transparent 100%);
+}
+
+/* Responsive Design */
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .header-content {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
+  header h1 {
+    font-size: 1.6rem;
+  }
+  
+  nav {
+    width: auto;
+    margin-top: 0;
+  }
+  
+  nav ul {
+    gap: 1rem;
+  }
+  
+  main {
+    padding: 1.2rem 3%;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1025px) {
+  .header-content {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
+  header h1 {
+    font-size: 1.7rem;
+  }
+  
+  nav {
+    width: auto;
+    margin-top: 0;
+  }
+  
+  main {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+    padding: 2rem 5%;
+  }
+  
+  section:first-child :first-child {
+    grid-column: 1 / -1;
+  }
+  
+  .form-container {
+    max-width: 100%;
+  }
+}
+
+
+
+/* Small Phone (480px and below) */
+@media (max-width: 480px) {
+  header {
+    padding: 0.8rem 5%;
+  }
+  
+  header h1 {
+    font-size: 1.3rem;
+  }
+  
+  header p {
+    font-size: 0.8rem;
+  }
+  
+  .hamburger-menu {
+    width: 25px;
+    height: 18px;
+  }
+  
+  .hamburger-menu.active span:nth-child(1) {
+    transform: translateY(7.5px) rotate(45deg);
+  }
+  
+  .hamburger-menu.active span:nth-child(3) {
+    transform: translateY(-7.5px) rotate(-45deg);
+  }
+}
+
+
+/* Extra Credit Features */
+
+/* Wider gamut color */
+.gradient-text {
+  background: linear-gradient(135deg, var(--primary-green) 0%, var(--light-green) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* New selectors */
+section:has(h2) {
+  border-top: 2px solid var(--mint-green);
+  padding-top: 1.2rem;
+}
+
+/* Print styles */
+@media print {
+  * {
+    background: transparent !important;
+    color: color-mix(in hsl, hsl(200 50 80), coral)!important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  
+  header, footer, .hamburger-menu {
+    display: none;
+  }
+  
+  nav {
+    display: block !important;
+  }
+  
+  nav ul {
+    display: flex !important;
+    background: none !important;
+    padding: 0 !important;
+  }
+}
+
+/* Personal Belief Section */
+.personal-belief {
+  padding: 1.5rem;
+  
+  & h3 {
+    color: var(--dark-green);
+  }
+  
+  & .belief-image {
+    object-fit: cover;
+    
+    &:hover {
+      transform: scale(1.02);
+    }
+  }
+}
+
+picture {
+    max-width: 500px; /* Control maximum image size */
+    margin: 1rem auto;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.belief-image {
+    width: 100%;
+    height: 300px; /* Fixed height for consistency */
+    object-fit: cover; /* Ensures image fills container without distortion */
+    object-position: center; /* Focus on the center of the image */
+    transition: transform 0.3s ease;
+}
+
+.belief-image:hover {
+    transform: scale(1.02);
+}
+
+.belief-caption {
+    font-style: italic;
+    color: var(--text-muted);
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+}
+.image-citation {
+    display: block;
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-style: normal; /* Override default italic style */
+    text-align: center;
+    padding: 0.5rem;
+    background: color-mix(in srgb, var(--mint-green) 30%, transparent 70%);
+    border-radius: 4px;
+    
+    & a {
+        color: var(--primary-green);
+        text-decoration: none;
+        
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+a {
+  color: inherit; /* Inherits color from parent */
+  text-decoration: none; /* Removes underline */
+}
+
+/* If you want to keep the italic style but make it subtle */
+.image-citation.italic {
+    font-style: italic;
+    opacity: 0.7;
+}
+/* Responsive Image Sizes */
+@media (max-width: 768px) {
+    picture {
+        max-width: 100%;
+        margin: 0.75rem auto;
+    }
+    
+    .belief-image {
+        height: 250px; /* Slightly smaller on tablets */
+    }
+    
+    .personal-belief {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .belief-image {
+        height: 200px; /* Even smaller on mobile */
+    }
+    
+    .personal-belief {
+        padding: 0.75rem;
+    }
+}
+
