@@ -104,6 +104,9 @@ main {
   box-sizing: border-box;
 }
 
+/* Trying to style my project-card*/
+
+
 
 /* Resume sections */
 /* Define the animation first */
@@ -498,7 +501,8 @@ section:has(h2) {
 }
 
 picture {
-    max-width: 500px; /* Control maximum image size */
+    max-width: 20rem; /* Control maximum image size */
+    max-height: 20rem;
     margin: 1rem auto;
     border-radius: 8px;
     overflow: hidden;
@@ -579,3 +583,37 @@ a {
     }
 }
 
+
+/* Projects Grid Layout */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+    padding: 1rem 0;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+}
+
+@media (min-width: 1200px) {
+    .projects-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* 确保自定义元素样式正确继承 */
+project-card {
+    /* 这些变量将从 :root 继承 */
+    --card-bg: var(--card-bg);
+    --primary-color: var(--primary-green);
+    --text-color: var(--text-color);
+    --border-radius: var(--border-radius);
+    --box-shadow: var(--box-shadow);
+    --transition: var(--transition);
+}
