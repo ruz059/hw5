@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Management - CRUD Operations</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-text">
+            <h1>Project Management</h1>
+            <p>CRUD Operations - Create, Read, Update, Delete</p>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home(Resume)</a></li>
+                <li><a href="awards.html">Awards & Leadership</a></li>
+                <li><a href="projects.html">Projects and Courses</a></li>
+                <li><a href="values.html">Values</a></li>
+                <li><a href="crud.html" style="background: rgba(255,255,255,0.3);">Manage Projects</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- CRUD 操作面板 -->
+        <section class="crud-section">
+            <h2>Project Management Dashboard</h2>
+            
+            <!-- 创建新项目表单 -->
+            <div class="form-section">
+                <h3>Create New Project</h3>
+                <form id="createForm">
+                    <div class="form-group">
+                        <label for="title">Project Title *</label>
+                        <input type="text" id="title" name="title" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="image">Image URL</label>
+                        <input type="url" id="image" name="image" placeholder="https://example.com/image.jpg">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="alt">Image Description</label>
+                        <input type="text" id="alt" name="alt" placeholder="Describe the image for accessibility">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="description">Project Description *</label>
+                        <textarea id="description" name="description" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="link">Project Link</label>
+                        <input type="url" id="link" name="link" placeholder="https://example.com">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="date">Date</label>
+                        <input type="text" id="date" name="date" placeholder="2024 - Present">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="technologies">Technologies (comma separated)</label>
+                        <input type="text" id="technologies" name="technologies" placeholder="HTML5,CSS3,JavaScript">
+                    </div>
+                    
+                    <button type="submit">Create Project</button>
+                </form>
+            </div>
+
+            <!-- 现有项目列表和管理 -->
+            <div class="projects-list-section">
+                <h3>Manage Existing Projects</h3>
+                <div class="data-controls">
+                    <button id="loadLocal">Load Local Projects</button>
+                    <button id="loadRemote">Load Remote Projects</button>
+                </div>
+                
+                <div id="projectsList" class="projects-list">
+                    <!-- 项目列表将在这里动态生成 -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Made by Mary Zhao</p>
+    </footer>
+
+    <script src="crud-operations.js"></script>
+</body>
+</html>

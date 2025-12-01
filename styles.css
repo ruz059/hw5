@@ -667,3 +667,136 @@ project-card {
     --transition: var(--transition);
     animation: fadeIn 0.6s ease-out;
 }
+
+
+/* CRUD 页面特定样式 */
+.crud-section {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.form-section {
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 2rem;
+}
+
+.form-section h3 {
+    color: var(--primary-green);
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--mint-green);
+    padding-bottom: 0.5rem;
+}
+
+.projects-list-section {
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.projects-list {
+    margin-top: 1.5rem;
+}
+
+.project-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border: 1px solid var(--mint-green);
+    border-radius: var(--border-radius);
+    margin-bottom: 1rem;
+    transition: var(--transition);
+}
+
+.project-item:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--box-shadow);
+}
+
+.project-preview h4 {
+    color: var(--primary-green);
+    margin-bottom: 0.5rem;
+}
+
+.project-description {
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+}
+
+.project-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.9rem;
+}
+
+.project-meta .date {
+    color: var(--primary-green);
+    font-weight: 500;
+}
+
+.project-meta .tech {
+    color: var(--text-muted);
+}
+
+.project-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.btn-edit, .btn-delete {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-edit {
+    background: var(--light-green);
+    color: white;
+}
+
+.btn-delete {
+    background: #e74c3c;
+    color: white;
+}
+
+.btn-edit:hover {
+    background: var(--primary-green);
+    transform: translateY(-1px);
+}
+
+.btn-delete:hover {
+    background: #c0392b;
+    transform: translateY(-1px);
+}
+
+.no-projects {
+    text-align: center;
+    color: var(--text-muted);
+    padding: 2rem;
+    font-style: italic;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .project-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .project-actions {
+        align-self: flex-end;
+    }
+    
+    .form-section,
+    .projects-list-section {
+        padding: 1.5rem;
+    }
+}
