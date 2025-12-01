@@ -44,7 +44,22 @@ class ProjectCard extends HTMLElement {
                     box-shadow: var(--box-shadow);
                     overflow: hidden;
                     transition: var(--transition);
-                    height: 100%;
+                    margin-bottom: 2rem;
+                    padding: 1.5rem;
+                    animation: fadeIn 0.6s ease-out;
+                    box-sizing: border-box;
+                    width: 100%;
+                }
+
+                @keyframes fadeIn {
+                    from {
+                        opacity: 0;
+                        transform: translateY(20px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
                 }
 
                 :host(:hover) {
@@ -53,7 +68,6 @@ class ProjectCard extends HTMLElement {
                 }
 
                 .card-content {
-                    padding: 1.5rem;
                     display: flex;
                     flex-direction: column;
                     height: 100%;
@@ -65,6 +79,8 @@ class ProjectCard extends HTMLElement {
                     margin: 0 0 1rem 0;
                     font-size: 1.25rem;
                     line-height: 1.3;
+                    padding-bottom: 0.5rem;
+                    border-bottom: 2px solid var(--mint-green);
                 }
 
                 .project-image {
@@ -78,17 +94,8 @@ class ProjectCard extends HTMLElement {
                 .description {
                     flex: 1;
                     margin-bottom: 1rem;
-                    line-height: 1.5;
+                    line-height: 1.6;
                     color: var(--text-color);
-                }
-
-                .metadata {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    margin-bottom: 1rem;
-                    font-size: 0.9rem;
-                    color: var(--text-muted, #666666);
                 }
 
                 .technologies {
@@ -119,6 +126,8 @@ class ProjectCard extends HTMLElement {
                     font-weight: 600;
                     transition: var(--transition);
                     justify-content: center;
+                    width: 100%;
+                    box-sizing: border-box;
                 }
 
                 .project-link:hover {
@@ -127,8 +136,9 @@ class ProjectCard extends HTMLElement {
                 }
 
                 @media (max-width: 768px) {
-                    .card-content {
+                    :host {
                         padding: 1rem;
+                        margin-bottom: 1.5rem;
                     }
                     
                     .project-image {
@@ -185,11 +195,14 @@ class ProjectCard extends HTMLElement {
 // 注册自定义元素
 customElements.define('project-card', ProjectCard);
 
-// 动态创建项目卡片
+// 数据加载功能
 document.addEventListener('DOMContentLoaded', function() {
     const projectsContainer = document.getElementById('projectsContainer');
-    
-    const projectsData = [
+    const loadLocalBtn = document.getElementById('loadLocal');
+    const loadRemoteBtn = document.getElementById('loadRemote');
+
+    // 本地数据（存储在 localStorage）
+    const localProjects = [
         {
             title: "Personal Portfolio Website",
             image: "project1.img",
@@ -207,22 +220,19 @@ document.addEventListener('DOMContentLoaded', function() {
             link: "#",
             date: "2025 Winter",
             technologies: "HTML5,CSS Grid,Flexbox,JavaScript"
-        },
-        {
-            title: "Philosophy thesis",
-            image: "project1.img",
-            alt: "Philosopher thesis front",
-            description: "Describe about Plato's view on women",
-            link: "#",
-            date: "2023 Spring",
-            technologies: "Humanmind,mymind,philosophy,classicalEducation"
         }
     ];
 
-    // 清空容器并添加卡片
-    projectsContainer.innerHTML = '';
-    
-    projectsData.forEach(project => {
+    // 远程数据（使用 My JSON Server）
+    const REMOTE_URL = 'https://my-json-server.typicode.com/ruz059/ruz059-MyJsontry/projects';
+
+    // 初始化：将本地数据保存到 localStorage
+    if (!localStorage.getItem('projects')) {
+        localStorage.setItem('projects', JSON.stringify(localProjects));
+    }
+
+    // 创建项目卡片
+    function createProjectCard(project) {
         const card = document.createElement('project-card');
         card.setAttribute('title', project.title);
         card.setAttribute('image', project.image);
@@ -231,7 +241,76 @@ document.addEventListener('DOMContentLoaded', function() {
         card.setAttribute('link', project.link);
         card.setAttribute('date', project.date);
         card.setAttribute('technologies', project.technologies);
-        
-        projectsContainer.appendChild(card);
-    });
+        return card;
+    }
+
+    // 显示项目卡片
+    function displayProjects(projects) {
+        projectsContainer.innerHTML = '';
+        projects.forEach(project => {
+            projectsContainer.appendChild(createProjectCard(project));
+        });
+    }
+
+    // 从 localStorage 加载
+    function loadFromLocal() {
+        try {
+            const projects = JSON.parse(localStorage.getItem('projects'));
+            if (projects && projects.length > 0) {
+                displayProjects(projects);
+                alert(`Loaded ${projects.length} projects from localStorage!`);
+            } else {
+                alert('No projects found in localStorage!');
+            }
+        } catch (error) {
+            alert('Error loading from localStorage: ' + error.message);
+        }
+    }
+
+    // 从远程服务器加载
+    function loadFromRemote() {
+        fetch(REMOTE_URL)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(projects => {
+                displayProjects(projects);
+                alert(`Loaded ${projects.length} projects from remote server!`);
+            })
+            .catch(error => {
+                alert('Error loading from remote server: ' + error.message);
+                // 备用数据（如果远程服务器不可用）
+                const fallbackProjects = [
+                    {
+                        title: "Philosophy Thesis",
+                        image: "project3.img",
+                        alt: "Philosopher thesis front",
+                        description: "Research on Plato's view on women in classical philosophy.",
+                        link: "https://docs.google.com/document/d/1rS0534BHgKCUxB0tbsLDJbJfSEgQORtp9S7bmgAFLL0/edit",
+                        date: "2023 Spring",
+                        technologies: "Philosophy,Research,Classical Education"
+                    },
+                    {
+                        title: "Academic Research Platform",
+                        image: "project4.img",
+                        alt: "Research platform interface",
+                        description: "Developed a collaborative platform for academic research with data visualization tools.",
+                        link: "#",
+                        date: "2024 Fall",
+                        technologies: "JavaScript,Data Visualization,API"
+                    }
+                ];
+                displayProjects(fallbackProjects);
+                alert('Using fallback data due to server error');
+            });
+    }
+
+    // 添加事件监听器
+    loadLocalBtn.addEventListener('click', loadFromLocal);
+    loadRemoteBtn.addEventListener('click', loadFromRemote);
+
+    // 初始状态：容器为空，等待用户点击按钮
 });
