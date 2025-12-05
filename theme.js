@@ -538,7 +538,7 @@
             root.style.setProperty(property, value);
         });
         
-        // Apply font
+        // Apply font d
         if (fontValue) {
             root.style.setProperty('--font-family-primary', fontValue);
             root.style.setProperty('--font-family-heading', fontValue);
