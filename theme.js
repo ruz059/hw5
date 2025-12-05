@@ -595,8 +595,9 @@
         // Add customizer and overlay to body
         document.body.appendChild(overlay);
         document.body.appendChild(createThemeCustomizer());
+         
         
-        // Event listeners
+        // Event listeners d
         themeToggle.addEventListener('click', openThemeCustomizer);
         overlay.addEventListener('click', closeThemeCustomizer);
         document.getElementById('closeCustomizer').addEventListener('click', closeThemeCustomizer);
