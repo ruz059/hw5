@@ -1,4 +1,3 @@
-
 // CRUD 操作功能 - 仅本地数据
 document.addEventListener('DOMContentLoaded', function() {
     const createForm = document.getElementById('createForm');
@@ -6,12 +5,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const loadLocalBtn = document.getElementById('loadLocal');
     const loadRemoteBtn = document.getElementById('loadRemote');
 
-    // 初始化示例数据
+    // 初始化示例数据 - 修复：使用字符串ID
     function initializeSampleData() {
         if (!localStorage.getItem('projects')) {
             const sampleProjects = [
                 {
-                    id: 1,
+                    id: "1", // 改为字符串
                     title: "Personal Portfolio Website",
                     image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&h=300&fit=crop",
                     alt: "Code editor showing website development",
@@ -21,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     technologies: "HTML5,CSS3,JavaScript,Web Components"
                 },
                 {
-                    id: 2,
+                    id: "2", // 改为字符串
                     title: "CSE 134B Course Projects",
                     image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=300&fit=crop",
                     alt: "Team collaboration on software project",
@@ -35,12 +34,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // 生成唯一ID
+    // 生成唯一ID - 保持原样
     function generateId() {
         return Date.now().toString(36) + Math.random().toString(36).substr(2);
     }
 
-    // 显示项目列表
+    // 显示项目列表 - 修改：存储ID到dataset
     function displayProjectsList(projects) {
         projectsList.innerHTML = '';
         
@@ -62,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                 </div>
                 <div class="project-actions">
-                    <button class="btn-edit" data-index="${index}">Edit</button>
+                    <button class="btn-edit" data-index="${index}" data-id="${project.id}">Edit</button>
                     <button class="btn-delete" data-index="${index}">Delete</button>
                 </div>
             `;
@@ -70,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 填充编辑表单
+    // 填充编辑表单 - 保持原样
     function populateEditForm(project) {
         document.getElementById('title').value = project.title || '';
         document.getElementById('image').value = project.image || '';
@@ -95,25 +94,14 @@ document.addEventListener('DOMContentLoaded', function() {
         alert('📝 Now editing: ' + project.title + '\nModify the fields and click "Update Project"');
     }
 
-    // 创建项目 (CREATE)
-    function createProject(projectData) {
-        const projects = JSON.parse(localStorage.getItem('projects')) || [];
-        projectData.id = generateId();
-        projects.push(projectData);
-        localStorage.setItem('projects', JSON.stringify(projects));
-        
-        alert('✅ Project created successfully!');
-        displayProjectsList(projects);
-        resetForm();
-    }
-
-    // 更新项目 (UPDATE)
+    // 更新项目 (UPDATE) - 修复：确保比较的是相同类型
     function updateProject(projectId, projectData) {
         const projects = JSON.parse(localStorage.getItem('projects'));
-        const projectIndex = projects.findIndex(p => p.id === projectId);
+        // 确保projectId是字符串，与存储的ID类型匹配
+        const projectIndex = projects.findIndex(p => String(p.id) === String(projectId));
         
         if (projectIndex !== -1) {
-            projectData.id = projectId;
+            projectData.id = projects[projectIndex].id; // 保留原始ID
             projects[projectIndex] = projectData;
             localStorage.setItem('projects', JSON.stringify(projects));
             
@@ -121,11 +109,11 @@ document.addEventListener('DOMContentLoaded', function() {
             displayProjectsList(projects);
             resetForm();
         } else {
-            alert('❌ Project not found for updating');
+            alert('❌ Project not found for updating. ID: ' + projectId);
         }
     }
 
-    // 删除项目 (DELETE)
+    // 删除项目 (DELETE) - 保持原样
     function deleteProject(index) {
         if (confirm('Are you sure you want to delete this project?')) {
             const projects = JSON.parse(localStorage.getItem('projects'));
@@ -142,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // 重置表单
+    // 重置表单 - 保持原样
     function resetForm() {
         createForm.reset();
         delete createForm.dataset.editId;
@@ -151,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
         submitButton.style.background = 'linear-gradient(135deg, var(--primary-green) 0%, var(--light-green) 100%)';
     }
 
-    // 从本地存储加载
+    // 从本地存储加载 - 保持原样
     function loadFromLocal() {
         const projects = JSON.parse(localStorage.getItem('projects'));
         if (projects && projects.length > 0) {
@@ -162,15 +150,16 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // 从远程服务器加载（可选，仅查看）
+    // 从远程服务器加载 - 保持原样
     function loadFromRemote() {
         alert('⚠️ Remote loading is disabled in this version.\nAll changes are saved locally only.');
-        loadFromLocal(); // 回退到本地数据
+        loadFromLocal();
     }
 
-    // 事件委托处理所有按钮点击
+    // 事件委托处理所有按钮点击 - 修复：获取ID
     projectsList.addEventListener('click', function(e) {
         const index = e.target.getAttribute('data-index');
+        const projectId = e.target.getAttribute('data-id'); // 新增：获取ID
         
         if (!index) return;
         
@@ -188,7 +177,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // 表单提交处理
+    // 表单提交处理 - 保持原样
     createForm.addEventListener('submit', function(e) {
         e.preventDefault();
         
@@ -218,7 +207,19 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // 按钮事件监听器
+    // 创建项目 - 修复：确保ID是字符串
+    function createProject(projectData) {
+        const projects = JSON.parse(localStorage.getItem('projects')) || [];
+        projectData.id = String(generateId()); // 确保是字符串
+        projects.push(projectData);
+        localStorage.setItem('projects', JSON.stringify(projects));
+        
+        alert('✅ Project created successfully!');
+        displayProjectsList(projects);
+        resetForm();
+    }
+
+    // 按钮事件监听器 - 保持原样
     loadLocalBtn.addEventListener('click', loadFromLocal);
     loadRemoteBtn.addEventListener('click', loadFromRemote);
 
