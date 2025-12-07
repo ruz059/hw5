@@ -285,22 +285,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 // 备用数据（如果远程服务器不可用）
                 const fallbackProjects = [
                     {
-                        title: "Philosophy Thesis",
-                        image: "project3.img",
-                        alt: "Philosopher thesis front",
-                        description: "Research on Plato's view on women in classical philosophy.",
-                        link: "https://docs.google.com/document/d/1rS0534BHgKCUxB0tbsLDJbJfSEgQORtp9S7bmgAFLL0/edit",
-                        date: "2023 Spring",
-                        technologies: "Philosophy,Research,Classical Education"
+                       title: "Personal Portfolio Website",
+            image: "project1.img",
+            alt: "Code editor showing website development",
+            description: "A responsive portfolio website built with HTML5, CSS3, and JavaScript, featuring custom web components and modern CSS features.",
+            link: "#",
+            date: "2024 - Present",
+            technologies: "HTML5,CSS3,JavaScript,Web Components"
                     },
                     {
-                        title: "Academic Research Platform",
-                        image: "project4.img",
-                        alt: "Research platform interface",
-                        description: "Developed a collaborative platform for academic research with data visualization tools.",
-                        link: "#",
-                        date: "2024 Fall",
-                        technologies: "JavaScript,Data Visualization,API"
+                        title: "CSE 134B Course Projects",
+            image: "project1.img",
+            alt: "Team collaboration on software project",
+            description: "Advanced web development projects including responsive design, accessibility features, and modern web APIs.",
+            link: "#",
+            date: "2025 Winter",
+            technologies: "HTML5,CSS Grid,Flexbox,JavaScript"
                     }
                 ];
                 displayProjects(fallbackProjects);
